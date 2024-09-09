@@ -1,0 +1,313 @@
+$themes: (
+    dark: (
+        text: white,
+        bg: black,
+        border: white,
+        codeBorder: rgba(255, 166, 0, 0.534),
+        icon: invert(0),
+        highlight: orange,
+        hover: white,
+        hover_color: invert(100%)
+    ),
+    light: (
+        text: black,
+        bg: white,
+        border: black,
+        codeBorder: rgb(255, 166, 0),
+        icon: invert(100%),
+        highlight: rgb(255, 121, 11),
+        hover: black,
+        hover_color: invert(0)
+    ),
+);
+
+@mixin themify($themes) {
+    @each $name, $values in $themes {
+        .#{$name}-theme {
+            $theme-map: $values !global;
+            @content;
+        }
+    }
+}
+
+* {
+    transition: color 2s, background-color 2s, filter 2s;
+    transition: background-color 2s;
+}
+
+header {
+    top: 0;
+    background-color: black;
+    position: fixed;
+    width: 100%;
+    border-bottom: solid rgba(255, 255, 255, 0.171) 1px;
+    .icon {
+        border-radius: 15px;
+        cursor: pointer;
+    }
+    .left {
+        h1 {
+            margin: 0;
+            padding: 0;
+            font-size: medium;
+        }
+    }
+    div {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+    .right {
+        right: 0 !important;
+        margin-left: auto;
+        margin-right: 20px;
+    }
+    display: flex;
+    flex-direction: row;
+    img {
+        width: 30px
+    }
+}
+
+@mixin codebox($border) {
+    background-color: rgb(44, 42, 42) !important;
+    border: solid $border 1px;
+    border-radius: 15px;
+}
+
+$theme-map: null;
+
+@function themed($key) {
+    @return map-get($theme-map, $key);
+}
+
+@include themify($themes) {
+    background-color: themed('bg');
+    color: themed('text') !important;
+    header {
+        background-color: themed('bg');
+        border-color: themed('border');
+    }
+    .codebox, .code_example {
+        @include codebox(themed('codeBorder'))
+    }
+    .icon {
+        filter: themed('icon');
+        &:hover {
+            background-color: themed('hover');
+            filter: themed('hover_color');
+        }
+    }
+    .highlight {
+        color: themed('highlight');
+    }
+    .config_table {
+        border-color: themed('border');
+        tr, td, th {
+            border-color: themed('border')
+        }
+        td {
+            color: rgb(68, 66, 66);
+        }
+    }
+
+    a {
+        color: rgb(0, 119, 255);
+    }
+}
+
+@media (max-width: 769px) {
+    .menu {
+        display: block !important;
+    }
+    .content {
+        width: 100% !important;
+    }
+    .sidebar {
+        transform: translateX(+100%);
+        position: absolute;
+        transition: transform 0.6s;
+    }
+}
+.content {
+    width: 60%;
+    margin: auto;
+}
+
+.menu {
+    display: none;
+}
+
+.sidebarActive {
+    transform: translateX(0)
+}
+
+.codebox {
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    padding: 1%;
+    color: white;
+    img {
+        cursor: pointer;
+        margin-left: 2px;
+        filter: invert(0) !important
+    }
+}
+
+body {
+    font-family: "Open Sans";
+    font-size: 16px;
+}
+
+main {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    .sidebar {
+        top: 30px;
+        height: 90vh;
+        overflow: scroll;
+        font-size: 0.9em;
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        right: 0;
+        background-color: rgb(11, 13, 20);
+        border-radius: 15px;
+        border: solid rgba(214, 214, 214, 0.39) 2px;
+        ul {
+            padding: 0;
+        }
+        .side2, .side3, .side4 {
+            padding-left: 1em;
+            border-left: solid rgba(255, 255, 255, 0.158) 1px;
+        }
+        .side1 {
+            padding-bottom: 40px;
+            li {
+                font-weight: bold;
+            }
+        }
+        .side3 {
+            li {
+                font-weight: normal;
+                font-size: 0.9em;
+            }
+        }
+        .side1 {
+            padding: 0em 1.3em;
+        }
+        li {
+            text-decoration: none;
+            list-style-type: none;
+            padding: 0;
+        }
+        h5, ul {
+            text-decoration: none;
+            margin: 0;
+        }
+        h5 {
+            text-align: center;
+            font-size: 1em;
+            width: 100%;
+            background-color: rgb(255, 254, 254);
+            border-radius: 15px;
+            color: black;
+        }
+        a {
+            color: white;
+            text-decoration: none;
+            text-wrap: nowrap;
+        }
+    }
+}
+
+.active {
+    color: orange !important;
+    background-color: rgba(121, 121, 121, 0.39);
+    border-radius: 15px;
+    padding: 1% 3%;
+}
+
+.highlight {
+    font-weight: bold;
+}
+
+$file_tree: rgba(189, 108, 15, 0.432);
+
+.file_tree {
+    border: solid 2px $file_tree;
+    width: fit-content;
+    padding: 1%;
+    border-radius: 1rem;
+    background-color: rgb(36, 32, 32);
+    color: white;
+    li {
+        list-style-type: none;
+    }
+    span {
+        border-bottom: 1px solid $file_tree;
+        border-left: 1px solid $file_tree;
+        height: 1.7rem;
+        width: 2rem;
+        display: inline-block;
+    }
+    b {
+        color: rgb(207, 57, 90);
+    }
+}
+
+.config_paths {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    h3 {
+        margin: 0;
+        margin-right: 1%;
+    }
+    p {
+        margin: 0;
+    }
+}
+
+$table-border: solid 1px;
+
+.config_table {
+    border: $table-border;
+    tr, td, th {
+        border: $table-border;
+        padding: 7px;
+        align-items: center;
+    }
+    tbody {
+        text-align: left;
+    }
+}
+
+.code_example {
+    width: fit-content;
+    padding: 1%;
+    font-size: 0.8em;
+}
+
+.hljs {
+    background: none !important;
+}
+
+.validity {
+    p {
+        margin-right: 2%;
+    }
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    .invalid {
+        color: rgb(175, 23, 23);
+    }
+}
+
+.flatpak-example {
+    width: 60%;
+}

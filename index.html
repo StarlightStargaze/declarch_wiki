@@ -1,1 +1,732 @@
-<h1>hello</h1>
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <title>Single-Page Wiki</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@catppuccin/highlightjs@0.2.2/css/catppuccin-mocha.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>hljs.highlightAll();</script>
+</head>
+<body class="dark-theme">
+    <header>
+        <div class="left">
+            <img src="stuff/declarch-white.svg" alt="Declarch-logo" class="icon">
+            <h1>Declarch Wiki</h1>
+        </div>
+        <div class="center">
+
+        </div>
+        <div class="right">
+            <img src="stuff/dark_mode.svg" alt="theme-toggle" id="theme_toggle" class="icon">
+            <img src="stuff/menu_open.svg" alt="menu" class="menu icon">
+        </div>
+    </header>
+    <main>
+        <div class="sidebar">
+            <h5>Contents</h5>
+            <ul class="side1">
+                <li><a href="#Welcome">Welcome</a></li>
+                <li><a href="#Installation">Installation</a></li>
+                <li><a href="#Declarch_Directory">Declarch Directory</a>
+                    <ul class="side2">
+                        <li><a href="#Directories">Directories</a>
+                        <ul class="side3">
+                            <li><a href="#Config">Config</a></li>
+                            <li><a href="#System">System</a></li>
+                            <li><a href="#Backup">Backup</a></li>
+                        </ul>
+                        </li>
+                        <li><a href="#Directory_Types">Directory Types</a>
+                            <ul class="side3">
+                                <li><a href="#Normal">Normal</a></li>
+                                <li><a href="#Special">Special</a></li>
+                                <li><a href="#Secure_Normal">Secure Normal</a></li>
+                                <li><a href="#Secure_Special">Secure Special</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#System_Types">System Types</a>
+                            <ul class="side3">
+                                <li><a href="#Home">Home</a></li>
+                                <li><a href="#Root">Root</a></li>
+                                <li><a href="#Other">Other</a></li>
+                                <li><a href="#Generic">Generic</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li><a href="#System_Configuration">System Configuration</a>
+                    <ul class="side2">
+                        <li><a href="#Locations">Locations</a></li>
+                        <li><a href="#Paths">Paths</a>
+                        <ul class="side3">
+                            <li><a href="#Defining_Paths">Defining Paths</a>
+                                <ul class="side4">
+                                    <li><a href="#Titles">Titles</a></li>
+                                    <li><a href="#System_Type">System Type</a></li>
+                                    <li><a href="#Source">Source</a></li>
+                                    <li><a href="#Destination">Destination</a></li>
+                                    <li><a href="#Syntax">Syntax</a></li>
+                                    <li><a href="#Execution">Execution</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                        </li>
+                        <li><a href="#Aliases">Aliases</a></li>
+                    </ul>
+                </li>
+                <li><a href="#Package_Management">Package Management</a>
+                    <ul class="side2">
+                        <li><a>Instructions</a></li>
+                        <li><a>Package Managers</a>
+                            <ul class="side3">
+                                <li><a href="#Arch">Arch</a>
+                                    <ul class="side4">
+                                        <li><a href="#Paru_and_Yay">Paru and Yay</a></li>
+                                        <li><a href="#Pacman">Pacman</a></li>
+                                    </ul>
+                                </li>
+                                <li><a>Visual Studio Code</a></li>
+                                <li><a>Vscodium</a></li>
+                                <li><a>Flatpak</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="content">
+            <article class="section">
+                <h2>Declarch: A Declarative System Management Tool</h2>
+                <p>Welcome to the Official Wiki for Declarch.</p>
+                <p>Declarch is a powerful tool designed to simplify system management tasks. Currently it offers two primary functions:</p>
+                <ul>
+                    <li>
+                        <h3>File and Directory Management</h3>
+                        <ul>
+                            <li><b>Linking:</b> Declarch allows you to create symbolic links (symlinks) between files or directories across your system.</li>
+                            <li><b>Copying:</b> You can also use Declarch to copy files or directories to specific locations.</li>
+                        </ul>
+                        <p>You are provided different directories for which you will store the configuration for your system in <code>/etc/declarch</code>. This is so all the configuration for your system is stored all in one place.</p>
+                        <p>The functionality depends on every <a href="#Directory_Types">Directory Type</a> you place your config in which you will soon learn about in <a href="#Declarch_Directory">Declarch Directory</a>.</p>
+                        <p>Declarch has safety features in place to protect your data. If a file/directory already exists, then Declarch will not overwrite. After the Declarch command is executed, it will notify you of file/directory conflicts.</p>
+                        <p>Declarch also keeps track of all your files/directories. When they are added, they are added to a database. When they are removed, directories are only removed when empty, files with copying functionality will be removed, and symlinks will be removed.</p>
+                    </li>
+                    <li>
+                        <h3>Package Management</h3>
+                        <p>Declarch doesn't have it's own package manager, it piggy backs off of various package managers.</p>
+                        <p>Right now, Declarch primarily focuses on Arch, but other distros will soon become compatible.</p>
+                        <p>Declarch installs packages in the order of which they are listed in the config file and removes packages when they are removed.</p>
+                        <p><b>Right now, the available package managers are:</b></p>
+                        <ul>
+                            <li>Pacman</li>
+                            <li>Paru</li>
+                            <li>Yay</li>
+                            <li>Flatpak</li>
+                            <li>Visual Studio Code</li>
+                            <li>Vscodium</li>
+                        </ul>
+                        <p>Refer to <a href="#Package_Management">Package Management</a> for a guide on how to configure.</p>
+            </li>
+        </ul>
+        <p>Declarch will only link/copy and install packages when the declarch command is executed.</p>
+        <h3>Example Config</h3>
+        <pre class="code_example"><code class="language-toml">
+[paths]
+[paths.system]
+home = [
+    [".zshrc", ".zshrc"],
+    [".themes", ".themes"]
+]
+
+other = [
+    ["[drive]Music", "[home]Music"]
+]
+    
+[paths.special_system]
+root = [
+    ["firefox", "/usr/lib/firefox"]
+]
+    
+[aliases]
+"[drive]" = "mnt/SecDrive"
+    
+[install]
+paru = [
+    "code",
+    "flatpak",
+    "mpd-discord-rpc"
+]
+
+flatpak = [
+    "com.sindresorhus.Caprine"
+]
+    
+vsc = [
+    "aaron-bond.better-comments",
+    "bungcip.better-toml",
+    "catppuccin.catppuccin-vsc",
+    "esbenp.prettier-vscode"
+]
+                </code></pre>
+            </article>
+        <article class="section">
+            <h1 id="Installation">Installation</h1>
+            <h3>Prerequisites</h3>
+            <p>These are the packages you need to install:</p>
+            <ul>
+                <li>sqlite</li>
+                <li>cargo</li>
+                <li>rustup</li>
+            </ul>
+            <p>On Debian distributions you will need <span class="highlight">libsqlite3-dev</span>.</p>
+            <h3>Building</h3>
+            <p>After you have installed the necessary packages, you're ready to build:</p>
+            <h4>Clone the repository:</h4>
+            <div class="codebox">
+                <code id="code1">git clone https://github.com/StarlightStargaze/Declarch</code>
+                <img class="icon" src="stuff/copy.svg" alt="copy" onclick="copyCode('code1')">
+            </div>
+            <h4>Enter the directory:</h4>
+            <div class="codebox">
+                <code id="code2">cd Declarch</code>
+                <img class="icon" src="stuff/copy.svg" alt="copy" onclick="copyCode('code2')">
+            </div>
+            <h4>Setup the environment:</h4>
+            <div class="codebox">
+                <code id="code3">make setup</code>
+                <img class="icon" src="stuff/copy.svg" alt="copy" onclick="copyCode('code3')">
+            </div>
+            <h4>Build the binaries:</h4>
+            <div class="codebox">
+                <code id="code4">make build</code>
+                <img class="icon" src="stuff/copy.svg" alt="copy" onclick="copyCode('code4')">
+            </div>
+            <h4>And finally:</h4>
+            <p>Make sure to run with sudo.</p>
+            <div class="codebox">
+                <code id="code5">sudo make install</code>
+                <img class="icon" src="stuff/copy.svg" alt="copy" onclick="copyCode('code5')">
+            </div>
+            <h1>Uninstalling</h1>
+            <p>Uninstalling will not remove the directory located in <code>/etc/declarch</code>.</p>
+            <h4>Just run the following command:</h4>
+            <p>(While located in the cloned directory.)</p>
+            <div class="codebox">
+                <code id="code6">sudo make uninstall</code>
+                <img class="icon" src="stuff/copy.svg" alt="copy" onclick="copyCode('code6')">
+            </div>
+        </article>
+        <article class="section">
+            <h1 id="Declarch_Directory">Declarch Directory</h1>
+            <p>Before we get to the configuring process, you need to know more about how everything works.</p>
+            <p>After completing the installation process, a new directory is created with a number of subdirectories. Located at <code>/etc/declarch</code>. This is your config directory, which is also the default location of the config file <code>declarch.toml</code>.</p>
+            <p>Regardless of being located in <code>/etc/declarch</code>, the ownership for every directory has been set to the user running the installation command (your user). Meaning, changes to this directory does not require sudo, and it ensures that there aren't any permission issues when linking files.</p>
+            <p>The only directories with root permissions are the root subdirectories contained within the system and backup directories.</p>
+            <h4>Why /etc?</h4>
+            <p>The reason the config directory is located in <code>/etc</code> rather than <code>.config</code> for example is because the majority of declarch works through symlinks. If you symlink a major file such as <code>/etc/fstab</code>, no matter whether the source file is located on the same device as the destination file, your system may not boot.</p>
+            <p>Because of this issue, how the root subdirectories works is it creates hardlinks to the root partitions rather than symlinks, and hardlinks can only be created if the source and destination files are located on the same device. <b>But please do be aware that entire directories can't be hardlinked.</b></p>
+            <p>The config directory is only a default, and you are free to place it anywhere that best suits you. <a href="#Locations">Instructions Here</a></p>
+            <div class="subsection">
+                <h2 id="Directories">Understanding the Directory Structure</h2>
+                <p>There are three main types of directories:</p>
+                <ul>
+                    <li><b>Config</b>: <span class="highlight">config</span>, <span class="highlight">special_config</span>, <span class="highlight">secure_config</span> and <span class="highlight">secure_special_config</span>.</li>
+                    <li><b>System</b>: <span class="highlight">system</span>, <span class="highlight">special_system</span>, <span class="highlight">secure_system</span> and <span class="highlight">secure_special_system</span>.</li>
+                    <li><b>Backup</b>: <span class="highlight">backup</span> and <span class="highlight">secure_backup</span>.</li>
+                </ul>
+                <p>The <span class="highlight">System</span> and <span class="highlight">Backup</span> directories all have subdirectories:</p>
+                <ul>
+                    <li><b>Home</b>: For linking/copying to the home directory.</li>
+                    <li><b>Root</b>: For linking/copying files/directories that require root privilages.</li>
+                    <li><b>Other</b>: For linking/copying files/directories to anywhere on your system.</li>
+                </ul>
+            <div class="sub-subsection">
+                <h3 id="Config">Config</h3>
+                <p>These directories are where you place your config to be linked to .config via symlink.</p>
+                <p>No configuration is required for these directories, but you will need to know more about their <a href="#Directory_Types">Directory Types</a>.</p>
+            </div>
+            <div class="sub-subsection">
+                <h3 id="System">System Directories</h3>
+                <p>These directories are where you place files/directories to be linked anywhere in your system via symlink.</p>
+                <p>Declarch will only link these directories when the source and destination are declared inside your config. (Default location:<code>/etc/declarch/declarch.toml</code>).</p>
+            </div>
+            <div class="sub-subsection">
+                <h3 id="Backup">Backup Directories</h3>
+                <p>The same as <span class="highlight">System</span> except rather than symlinking, files/directories placed into these directories are copied.</p>
+                <p>All files within these directories are tracked by their modification time and their destination files are overwritten based on changes made.</p>
+                <p>Safety mechanisms have been put into place to track the modification times of the destination files. If you edit a file in the destination, execute the update command, declarch will refuse to copy that file until the destination file time is either the same or the file has been moved to the source config directory.</p>
+            </div>
+        </div>
+            <div class="subsection">
+                <h2 id="Directory_Types">Directory Types</h2>
+                <p>There are four types of directories:</p>
+                <ul>
+                    <li>Normal</li>
+                    <li>Special</li>
+                    <li>Secure Normal</li>
+                    <li>Secure Special</li>
+                </ul>
+                <div class="sub-subsection">
+                    <h3 id="Normal">Normal</h3>
+                    <p>Also named <span class="highlight">config</span> or <span class="highlight">system</span>.</p>
+                    <p>For <span class="highlight">config</span>, when a directory is placed in this directory. The entire directory is symlinked to <code>.config</code>. No need to add anything to the configuration, just execute the declarch command, and the directories will be linked.</p>
+                    <p>For <span class="highlight">system</span>, you place your config in either <b>home</b>, <b>root</b> or <b>other</b>. After moving the files/directories into either of the subdirectories, you need to declare it in the configuration, which will be covered in a later section.</p>
+                </div>
+                <div class="sub-subsection">
+                    <h3 id="Special">Special</h3>
+                    <p>Also named <span class="highlight">special_config</span>, <span class="highlight">special_system</span> and <span class="highlight"> backup</span>.</p>
+                    <p>Rather than linking the entire directory, when a directory is placed into the subdirectory, the structure of the directory is linked.</p>
+                    <p>The reason this directory type exists is to ensure you only backup the files necessary for you. Since some programs generate a lot of config you may not need to backup.</p>
+                    <h4>Example:</h4>
+                    <p>Best way to describe this is with an example.</p>
+                    <p>Let's say you want to backup a theme for gnome you made with gtk-3 located in <code>.config/gtk-3.0</code>.</p>
+                    <p><b>The original file structure of the directory looks like this:</b></p>
+                    <ul class="file_tree">
+                        <li>gtk-3.0
+                            <ul>
+                                <li><span></span>assets
+                                    <ul>
+                                        <li><span></span>close-active.svg</li>
+                                        <li><span></span>close-backdrop-active.svg</li>
+                                        <li><span></span>etc..</li>
+                                    </ul>
+                                </li>
+                                <li><span></span>bookmarks</li>
+                                <li><span></span>colors.css</li>
+                                <li><span></span>gtk.css</li>
+                                <li><span></span>etc..</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p>Let's say you only edited your theme in <code>gtk.css</code> and made a fancy new icon <code>close-active.svg</code> you want to backup.</p>
+                    <p>Since Gnome generates the config on installation, there is no need to backup the entire directory.</p>
+                    <p>So you need to build the structure yourself, moving the files you want to backup to their correct sub-directories.</p>
+                    <p><b>The structure inside your <span class="highlight">special_config</span> folder will look like this:</b></p>
+                    <ul class="file_tree">
+                        <li>special_config
+                            <ul>
+                                <li><span></span>gtk-3.0
+                                    <ul>
+                                        <li><span></span>assets
+                                            <ul>
+                                                <li><span></span>close-active.svg</li>
+                                            </ul>
+                                        </li>
+                                        <li><span></span>gtk.css</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p>The same applies to <span class="highlight">special_system</span> and <span class="highlight">backup</span>. Except rather than placing your config directly in the root of the subdirectory, they must be placed in either <span class="highlight">home</span>, <span class="highlight">root</span> or <span class="highlight">other</span>.</p>
+                    <p><b>After the structure is built and your files are placed in their correct directories, the structure will look like this:</b></p>
+                    <p>(bold and red indicates files symlinked)</p>
+                    <ul class="file_tree">
+                        <li>gtk-3.0
+                            <ul>
+                                <li><span></span>assets
+                                    <ul>
+                                        <li><span></span><b>close-active.svg</b></li>
+                                        <li><span></span>close-backdrop-active.svg</li>
+                                        <li><span></span>etc..</li>
+                                    </ul>
+                                </li>
+                                <li><span></span>bookmarks</li>
+                                <li><span></span>colors.css</li>
+                                <li><span></span><b>gtk.css</b></li>
+                                <li><span></span>etc..</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="sub-subsection">
+                    <h3 id="Secure_Normal">Secure Normal</h3>
+                    <p>Also named <span class="highlight">secure_config</span> and <span class="highlight">secure_system</span>.</p>
+                    <p>The same function as <span class="highlight">config</span> or <span class="highlight">system</span> except this directory is for splitting the config containing sensitive information you do not wish to display in your dotfiles publicly.</p>
+                    <p>You can choose to backup this directory in a private repo, or you can exclude it completely with .gitignore.</p>
+                    <h4>Usage:</h4>
+                    <p>One example of a program requiring sensitive info to be inputted is <code>mpd-discord-rpc</code>. In the config file, it requires you to input a discord bot application ID.</p>
+                </div>
+                <div class="sub-subsection">
+                    <h3 id="Secure_Special">Secure Special</h3>
+                    <p>Also named <span class="highlight">secure_special_config</span>, <span class="highlight">secure_special_system</span> and <span class="highlight">secure_backup</span>.</p>
+                    <p>The same function as <span class="highlight">special_config</span>, <span class="highlight">special_system</span> and <span class="highlight">backup</span>, and also allows you to split files containing sensitive information from your config directory</p>
+                    <p>You can use this directory to mix and match with the config you placed in special config.</p>
+                </div>
+        </div>
+        <div class="subsection">
+            <h2 id="System_Types">System Types</h2>
+            <p>Now it's time to cover the system types, you will find out what they do and how to format the paths. There are four system types in total: <span class="highlight">home</span>, <span class="highlight">root</span>, <span class="highlight">other</span> and <span class="highlight">generic</span>.</p>
+            <p>Each have an example for how to configure, for a more in-depth approach, refer to <a href="#Paths">Paths</a></p>
+            <div class="sub-subsection">
+                <h3 id="Home">Home</h3>
+                <p>The home system type is made for convenience. If you have a lot of things you would like to link or copy to the home directory, Declarch has your home path defined so there is no need to specify it.</p>
+                <p><b>Example usage:</b></p>
+                <pre class="code_example"><code class="language-toml">
+[paths]
+[paths.system]
+home = [
+    [".zshrc", ".zshrc"]
+]
+                </code></pre>
+            </div>
+            <div class="sub-subsection">
+                <h3 id="Root">Root</h3>
+                <p><b>! Do not use sudo with the declarch command.</b></p>
+                <p><b>! Only use this if you know what you're doing. Only you are responsible for any system breakages.</b></p>
+                <p>This directory is where you link (or copy) to the root directory.</p>
+                <p>The permissions for this directory is set to root and therefore <code>sudo</code> needs to be used when making changes to the directory.</p>
+                <p>By default, when the config directory is set to its default location (<code>/etc/declarch</code>), Declarch makes a check if the source and destination files/directories are on the same device (partition). If they are, Declarch will hardlink rather than symlink. This is as a safety precaution, because if certain files are symlinked (even when on the same device) for example <code>/etc/fstab</code>, it may result with your system not being able to boot.</p>
+                <p>If your root directory has a complex structure or you've relocated the Declarch configuration directory, it's strongly recommended to use the backup directories instead of the system directories when working with sensitive files. This will help avoid potential conflicts and ensure system stability.</p>
+                <p>On Linux systems, you are unable to hardlink an entire directory, so when a directory is entered into the <span class="highlight">system</span> directory, Declarch creates a symlink to the specified path. When dealing with sensitive files, it is important to either use <span class="highlight">special_system</span> so the contents of the directories are linked as hardlinks, or <span class="highlight">backup</span> so the contents of the directories are copied instead.</p>
+                <p>The full destination path must be specified.</p>
+                <p><b>Example usage:</b></p>
+                <pre class="code_example"><code class="language-toml">
+[paths]
+[paths.special_system]
+root = [
+    ["firefox", "/usr/lib/firefox"]
+]
+                </code></pre>
+            </div>
+            <div class="sub-subsection">
+                <h3 id="Other">Other</h3>
+                <p>The purpose of this directory is to allow linking/copying to anywhere else other than the root directory or the home directory.</p>
+                <p>The full destination path must be specified.</p>
+                <pre class="code_example"><code class="language-toml">
+[paths]
+[paths.backup]
+other = [
+    ["Music", "/mnt/SecondaryDrive/Music"]
+]
+                </code></pre>
+            </div>
+            <div class="sub-subsection">
+                <h3 id="Generic">Generic</h3>
+                <p>This directory is made to allow you to link/copy anything you like which is not contained within your declarch directory.</p>
+                <p>For this system type, you must declare the full path of both the source path and the destination path.</p>
+                <p><b>Example usage:</b></p>
+                <pre class="code_example"><code class="language-toml">
+[paths]
+[paths.backup]
+generic = [
+    ["/home/user/Documents", "/mnt/SecondaryDrive/Documents"]
+]
+                </code></pre>
+            </div>
+        </div>
+        </article>
+        <article class="section">
+            <h1 id="System_Configuration">System Configuration</h1>
+            <p>The default location for the configuration file is <code>/etc/declarch/declarch.toml</code>.</p>
+            <p>You have the freedom to specify the config location with the following command:</p>
+            <div class="codebox">declarch -c path/to/toml [Other Options]</div>
+            <div class="subsection">
+                <h2 id="Locations">Locations</h2>
+                <p>Titled [<span class="highlight">locations</span>] in the config file.</p>
+                <p>This is where you can set the default locations of every directory.</p>
+                <p>This part of the config is optional and there is no requirement to specify the paths. Declarch handles all this for you.</p>
+                <p><b>The options are as follows:</b></p>
+                <table class="config_table">
+                    <thead>
+                        <tr>
+                            <th scope="col">[<span class="highlight">locations</span>]</th>
+                            <th scope="col">Default</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">config</th>
+                            <td>/etc/declarch/config</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">special_config</th>
+                            <td>/etc/declarch/special_config</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">secure_config</th>
+                            <td>/etc/declarch/secure_config</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">secure_special_config</th>
+                            <td>/etc/declarch/secure_special_config</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">system</th>
+                            <td>/etc/declarch/system</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">special_system</th>
+                            <td>/etc/declarch/special_system</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">secure_system</th>
+                            <td>/etc/declarch/secure_system</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">secure_special_system</th>
+                            <td>/etc/declarch/secure_special_system</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">backup</th>
+                            <td>/etc/declarch/backup</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">secure_backup</th>
+                            <td>/etc/declarch/secure_backup</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">destination_config</th>
+                            <td>~/.config</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><b>Example Config:</b></p>
+                <pre class="code_example"><code class="language-toml">
+[locations]
+config = "path/to/config"
+system = "path/to/system"
+                </code></pre>
+            </div>
+            <div class="subsection">
+                <h2 id="Paths">Paths</h2>
+                <p>Titled [<span class="highlight">paths</span>] in the config.</p>
+                <p>Now it's time to configure the system.</p>
+                <pre class="code_example"><code class="language-toml">
+[paths]
+[paths.system]
+home = [
+    [".zshrc", ".zshrc"],
+    [".themes", ".themes"]
+]
+
+[paths.special_system]
+root = [
+    ["firefox", "/usr/lib/firefox"]
+]
+                                        </code></pre>
+                <p>Only the system and backup directories are required to be declared in the config file.</p>
+                <p>First, you must move the files/directories to their specified subdirectory: <span class="highlight">home</span>, <span class="highlight">root</span> or <span class="highlight">other</span>.</p>
+                <p>After the files/directories have been moved, declarch needs to know the source location of the files, and the destination for where to link/copy the files/directories. This is where you have to declare the paths in the config.</p>
+                <div class="sub-subsection">
+                    <h4 id="Defining_Paths">Defining Paths</h4>
+                    <p>Let's assume you have <code>zsh</code> installed and you want to back up the <code>.zshrc</code> file. (assuming your .zshrc file is located in the home directory) the best place to move it would be to the directory type <span class="highlight">system</span> and the system subdirectory <span class="highlight">home</span> (<code>/etc/declarch/system/home</code>).</p>
+                    <div class="sub-sub-section">
+                        <h5 id="Titles">Titles</h5>
+                        <p>Firstly, you place the system config under the title [<span class="highlight">paths</span>], then underneath you define the directory type. In this case, you place it under [<span class="highlight">paths.system</span>].</p>
+                        <p>[<span class="highlight">paths</span>] and [<span class="highlight">paths.system</span>] are the only valid syntax in the case of Declarch. [[paths]] is valid toml syntax, but Declarch specifically looks for a table which [paths] is while [[paths]] is a nested array.</p>
+                    </div>
+                    <div class="sub-sub-section">
+                        <h5 id="System_Type">System Type</h5>
+                        <p>Next, you define the system type, which in this case is <span class="highlight">home</span> followed by [ [<span class="highlight">"an"</span>, <span class="highlight">"array"</span>] ] containing the source of the file and the destination of the file which will be covered next.</p>
+                        <p>System types will be covered in the next section.</p>
+                    </div>
+                    <div class="sub-sub-section">
+                        <h5 id="Source">Source</h5>
+                        <p>Assuming you placed the .zshrc file in the root of the <span class="highlight">system/home</span> directory, you declare the source like so: <span class="highlight">".zshrc"</span>.</p>
+                        <p>Declarch already has the beginning of the path predefined, so there is no need to type the full path <span class="highlight">"/etc/declarch/system/home/.zshrc"</span></p>
+                        <p>You are also able to place the files/directories inside another directory. Let's assume you've done that with .zshrc and let's call the directory "stuff". You must provide the path of where the .zshrc file is located (again, not the full path): <span class="highlight">"/stuff/.zshrc"</span></p>
+                    </div>
+                    <div class="sub-sub-section">
+                        <h5 id="Destination">Destination</h5>
+                        <p>Let's clear something up first. The <span class="highlight">home</span> directory works differently to the other system types. In the other system types, you must specify the full path of the destination.</p>
+                        <p>In the case of <span class="highlight">home</span>, it is not required to provide the full path because the path to your home directory is already defined. Therefore, you only have to specify .zshrc like so: <span class="highlight">".zshrc"</span>.</p>
+                        <p><b>The end result will look like this:</b></p>
+                        <pre class="code_example"><code class="language-toml">
+[paths]
+[paths.system]
+home = [
+    [".zshrc", ".zshrc"]
+]
+                        </code></pre>
+                        <p><b>Now let's add another:</b></p>
+                        <p>Let's assume you have a fancy theme you made for gnome, which is a directory called <code>.themes</code> located in the home directory.</p>
+                        <p>Just simply move it to <span class="highlight">/etc/declarch/system/home</span>, and following the same schematics as the information above, seperating the two sources with a comma.</p>
+                        <p><b>Here is the end result:</b></p>
+                        <pre class="code_example"><code class="language-toml">
+[paths]
+[paths.system]
+home = [
+    [".zshrc", ".zshrc"],
+    [".themes", ".themes"]
+]
+                        </code></pre>
+                    </div>
+                    <div class="sub-sub-section">
+                        <h5 id="Syntax">Syntax</h5>
+                        <p>Declarch has a way of fixing the beginning and end of the paths you specify, so, these paths are valid in the config file:</p>
+                        <ul>
+                            <li><span class="highlight">"/.zshrc/"</span></li>
+                            <li><span class="highlight">"/.zshrc"</span></li>
+                            <li><span class="highlight">".zshrc"</span></li>
+                        </ul>
+                        <p>Paths must also be in the form of a <span class="highlight">"string"</span>.</p>
+                    </div>
+                    <div class="sub-sub-section">
+                        <h5 id="Execution">Execution</h5>
+                        <p>And finally, assuming everything is done correctly, it's time to execute the declarch command for the files/directories to be linked.</p>
+                        <p>Running <code>declarch</code> by itself will link and install everything defined in the config.</p>
+                        <p>Running <code>declarch -l</code> will only link config.</p>
+                        <p>You can also choose which directory types to link <code>declarch -l system special_system</code>.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="subsection">
+                    <h3 id="Aliases">Aliases</h3>
+                    <p>Titled [<span class="highlight">aliases</span>] in your config file.</p>
+                    <p>Declarch allows you to create aliases for convenience. They are implemented so you don't have to keep repetitively typing the same path structure into your config file.</p>
+                    <p>An alias for your home directory comes with Declarch already: [<span class="highlight">home</span>].</p>
+                    <p><b>The syntax for defining aliases are as follows:</b></p>
+                    <ul>
+                        <li>"[example]"</li>
+                        <li>"{example}"</li>
+                        <li>"(example)"</li>
+                        <li>"[{(example)}]"</li>
+                    </ul>
+                    <p>You are able to surround the definitions with as many of the symbols as you want, for example: [[[<span class="highlight">example</span>]]].</p>
+                    <p>You are also able to mix and match, like so: [{<span class="highlight">example</span>}].</p>
+                    <p>The same with the system paths, Declarch fixes the beginning and end of the paths defined by the alias. So you can format the path <span class="highlight">"like/this"</span> or <span class="highlight">"/like/this/"</span></p>
+                    <p><b>Example Config:</b></p>
+                    <pre class="code_example"><code class="language-toml">
+[aliases]
+"[drive]" = "/mnt/SecondaryDrive"
+"{{another}}" = "path/to/another"
+
+[paths]
+[paths.backup]
+generic = [
+    ["[home]Documents", "[drive]Documents"]
+]
+                    </code></pre>
+                    <p>As you can see in the example configs above. We defined the alias for <span class="highlight">"/mnt/SecondaryDrive"</span>. When applying the alias to the path in the example use, that path becomes <span class="highlight">"/mnt/SecondaryDrive/Documents"</span>.</p>
+            </div>
+        </article>
+        <article class="section">
+            <h1>Package Management</h1>
+            <p>Declarch currently focuses on Arch Linux package management, but support for additional distributions is planned for future updates.</p>
+            <p>Beyond Arch, here are some popular package managers that work on a wide variety of Linux distributions:</p>
+            <ul>
+                <li><span class="highlight">Flatpak</span></li>
+                <li><span class="highlight">Visual Studio Code</span></li>
+                <li><span class="highlight">Vscodium</span></li>
+            </ul>
+            <div class="subsection">
+                <h2>Instructions</h2>
+                <p>It's very straight forward, all you have to do is list out the packages/extensions in [ <span class="highlight">"an"</span>, <span class="highlight">"array"</span> ] and then execute the declarch command.</p>
+                <p>On declarch command execution, Declarch makes a check if that package/extension exists, and then installs the program/extension only if it doesn't exist.</p>
+                <p>Declarch also tracks the packages/extensions. When a package/extension is added to the configuration, but later removed, the package/extension will be removed from your system.</p>
+            </div>
+            <div class="subsection">
+                <h2>Package Managers</h2>
+                <p>Here is a list of all the package managers available. You will be given instructions on how to declare packages, and how to find the names of packages to input.</p>
+                    <div class="sub-subsection">
+                        <h3>Arch</h3>
+                        <p>Declarch provides support for <span class="highlight">pacman</span>, <span class="highlight">paru</span> and <span class="highlight">yay</span>.</p>
+                        <p><b>You are only able to use one at a time.</b></p>
+                        <p>If you have paru or yay installed and want to install packages from both the AUR and official repositories, place your packages under either paru or yay.</p>
+                        <p>If you don't have paru or yay installed, or prefer to avoid the AUR, use pacman.</p>
+                        <div class="sub-sub-section">
+                            <h4>Paru and Yay</h4>
+                            <p>Just list the packages in an array by the same package name you use to install with either paru or yay command.</p>
+                            <p>For example, let's say you want to install Discord which is available in the official repositories (named <code>discord</code>) and a package called <code>mpd-discord-rpc</code> which is available in the AUR.</p>
+                            <p>Here is how you format the config:</p>
+                            <h5>paru</h5>
+                            <pre class="code_example"><code class="language-toml">
+[install]
+paru = [
+    "discord",
+    "mpd-discord-rpc"
+]
+                            </code></pre>
+                            <h5>yay</h5>
+                            <pre class="code_example"><code class="language-toml">
+[install]
+yay = [
+    "discord",
+    "mpd-discord-rpc"
+]
+                            </code></pre>
+                        </div>
+                        <div class="sub-sub-section">
+                            <h4>Pacman</h4>
+                            <p>Same as the above examples, just add the package name as you do when installing packages with pacman.</p>
+                            <p>Self explanatory, but using Pacman means that packages available in the AUR cannot be installed.</p>
+                            <p><b>Let's add <code>flatpak</code> and <code>gimp</code></b>:</p>
+                            <pre class="code_example"><code class="language-toml">
+[install]
+pacman = [
+    "flatpak",
+    "gimp"
+]
+                        </code></pre>
+                        <h4>Tips</h4>
+                        <p>For a quick way to find the package names for the programs you wish to install, just google the package name followed by "arch" (<code>discord arch</code>).</p>
+                        <p>Find the Arch wiki page for the program and it will tell you whether the program is available from the official repos or the AUR.</p>
+                        <img alt="arch_screenshot" src="stuff/arch_example.png">
+                        <p>You can also search for the package in the <a href="https://archlinux.org/packages/">Official Repository</a> or the <a href="https://archlinux.org/packages/">AUR Repository</a>.</p>
+                        </div>
+                    </div>
+                    <div class="sub-subsection">
+                        <h3>Visual Studio Code</h3>
+                        <p>Declarch allows you to declaratively install extensions for Visual Studio Code.</p>
+                        <p>Because Visual Studio Code comes in many abbreviations, you are given an option to choose.</p>
+                        <p><b>Use only one:</b></p>
+                        <ul>
+                            <li><span class="highlight">vscode</span></li>
+                            <li><span class="highlight">vsc</span></li>
+                            <li><span class="highlight">code</span></li>
+                        </ul>
+                        <pre class="code_example"><code class="language-toml">
+[install]
+vsc = [
+    "esbenp.prettier-vscode",
+    "rust-lang.rust-analyzer"
+]
+                    </code></pre>
+                    <h4 id="VSC_Tips">Tips:</h4>
+                    <p>You can find the name for the extension on its Visual Studio Marketplace page:</p>
+                    <img src="stuff/vsc_example.png" alt="vsc_example1">
+                    <p>The name can also be found within its extensions page under "Details" tab on the right of page underneath "More Info".</p>
+                    <img src="stuff/vsc_example2.png" alt="vsc_example2">
+                    <p>If you have the extension installed, the extension identifer can also be found by executing the command <code>code --list-extensions</code> in your terminal.</p>
+                    <img src="stuff/vsc_example3.png" alt="vsc_example3">
+                </div>
+                <div class="sub-subsection">
+                    <h3>Vscodium</h3>
+                    <p>Vscodium has a different repository for extensions to Visual Studio Code so you will find that a lot of extensions available in Visual Studio Code aren't available.</p>
+                    <p>Only the extensions available in the vscodium extension marketplace can be installed, and the extensions unavailable will have to be installed manually by acquring their VSIX.</p>
+                    <pre class="code_example"><code class="language-toml">
+[install]
+vscodium = [
+    "esbenp.prettier-vscode",
+    "rust-lang.rust-analyzer"
+]
+                    </code></pre>
+                    <h5>Tips</h5>
+                    <p>Follow the tips provided for <a href="#VSC_Tips">Visual Studio Code</a>.</p>
+                </div>
+                <div class="sub-subsection">
+                    <h3>Flatpak</h3>
+                    <pre class="code_example"><code class="language-toml">
+[install]
+flatpak = [
+    "com.discordapp.Discord",
+    "rust-lang.rust-analyzer"
+]
+                    </code></pre>
+                    <h4>Tips</h4>
+                    <p>Best way for finding the package identifer is by heading to the Flathub page for the package you wish to install.</p>
+                    <p>Next to the "Install" button, click on the arrow pointing down.</p>
+                    <img class="flatpak-example" src="stuff/flatpak_example.png" alt="flatpak_example">
+                </div>
+            </div>
+        </article>
+    </div>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
