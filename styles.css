@@ -4,6 +4,7 @@
 }
 
 header {
+  z-index: 100;
   top: 0;
   background-color: black;
   position: fixed;
@@ -108,15 +109,25 @@ header img {
 }
 
 @media (max-width: 769px) {
+  .codebox {
+    font-size: 0.7em;
+  }
+  header {
+    z-index: 100;
+  }
   .menu {
     display: block !important;
   }
   .content {
     width: 100% !important;
+    position: relative;
+  }
+  .vsc_example {
+    width: 70% !important;
   }
   .sidebar {
+    z-index: 100;
     transform: translateX(100%);
-    position: absolute;
     transition: transform 0.6s;
   }
 }
@@ -130,6 +141,7 @@ header img {
 }
 
 .sidebarActive {
+  position: absolute;
   transform: translateX(0);
 }
 

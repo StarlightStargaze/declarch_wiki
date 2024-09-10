@@ -80,8 +80,8 @@
                 </li>
                 <li><a href="#Package_Management">Package Management</a>
                     <ul class="side2">
-                        <li><a>Instructions</a></li>
-                        <li><a>Package Managers</a>
+                        <li><a href="#Instructions">Instructions</a></li>
+                        <li><a href="#Package_Managers">Package Managers</a>
                             <ul class="side3">
                                 <li><a href="#Arch">Arch</a>
                                     <ul class="side4">
@@ -89,9 +89,9 @@
                                         <li><a href="#Pacman">Pacman</a></li>
                                     </ul>
                                 </li>
-                                <li><a>Visual Studio Code</a></li>
-                                <li><a>Vscodium</a></li>
-                                <li><a>Flatpak</a></li>
+                                <li><a href="#VSC">Visual Studio Code</a></li>
+                                <li><a href="#Vscodium">Vscodium</a></li>
+                                <li><a href="#Flatpak">Flatpak</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -100,7 +100,7 @@
         </div>
         <div class="content">
             <article class="section">
-                <h2>Declarch: A Declarative System Management Tool</h2>
+                <h2 id="Welcome">Declarch: A Declarative System Management Tool</h2>
                 <p>Welcome to the Official Wiki for Declarch.</p>
                 <p>Declarch is a powerful tool designed to simplify system management tasks. Currently it offers two primary functions:</p>
                 <ul>
@@ -606,7 +606,7 @@ generic = [
             </div>
         </article>
         <article class="section">
-            <h1>Package Management</h1>
+            <h1 id="Package_Management">Package Management</h1>
             <p>Declarch currently focuses on Arch Linux package management, but support for additional distributions is planned for future updates.</p>
             <p>Beyond Arch, here are some popular package managers that work on a wide variety of Linux distributions:</p>
             <ul>
@@ -615,22 +615,22 @@ generic = [
                 <li><span class="highlight">Vscodium</span></li>
             </ul>
             <div class="subsection">
-                <h2>Instructions</h2>
+                <h2 id="Instructions">Instructions</h2>
                 <p>It's very straight forward, all you have to do is list out the packages/extensions in [ <span class="highlight">"an"</span>, <span class="highlight">"array"</span> ] and then execute the declarch command.</p>
                 <p>On declarch command execution, Declarch makes a check if that package/extension exists, and then installs the program/extension only if it doesn't exist.</p>
                 <p>Declarch also tracks the packages/extensions. When a package/extension is added to the configuration, but later removed, the package/extension will be removed from your system.</p>
             </div>
             <div class="subsection">
-                <h2>Package Managers</h2>
+                <h2 id="Package_Managers">Package Managers</h2>
                 <p>Here is a list of all the package managers available. You will be given instructions on how to declare packages, and how to find the names of packages to input.</p>
                     <div class="sub-subsection">
-                        <h3>Arch</h3>
+                        <h3 id="Arch">Arch</h3>
                         <p>Declarch provides support for <span class="highlight">pacman</span>, <span class="highlight">paru</span> and <span class="highlight">yay</span>.</p>
                         <p><b>You are only able to use one at a time.</b></p>
                         <p>If you have paru or yay installed and want to install packages from both the AUR and official repositories, place your packages under either paru or yay.</p>
                         <p>If you don't have paru or yay installed, or prefer to avoid the AUR, use pacman.</p>
                         <div class="sub-sub-section">
-                            <h4>Paru and Yay</h4>
+                            <h4 id="Paru_and_Yay">Paru and Yay</h4>
                             <p>Just list the packages in an array by the same package name you use to install with either paru or yay command.</p>
                             <p>For example, let's say you want to install Discord which is available in the official repositories (named <code>discord</code>) and a package called <code>mpd-discord-rpc</code> which is available in the AUR.</p>
                             <p>Here is how you format the config:</p>
@@ -652,7 +652,7 @@ yay = [
                             </code></pre>
                         </div>
                         <div class="sub-sub-section">
-                            <h4>Pacman</h4>
+                            <h4 id="Pacman">Pacman</h4>
                             <p>Same as the above examples, just add the package name as you do when installing packages with pacman.</p>
                             <p>Self explanatory, but using Pacman means that packages available in the AUR cannot be installed.</p>
                             <p><b>Let's add <code>flatpak</code> and <code>gimp</code></b>:</p>
@@ -671,7 +671,7 @@ pacman = [
                         </div>
                     </div>
                     <div class="sub-subsection">
-                        <h3>Visual Studio Code</h3>
+                        <h3 id="VSC">Visual Studio Code</h3>
                         <p>Declarch allows you to declaratively install extensions for Visual Studio Code.</p>
                         <p>Because Visual Studio Code comes in many abbreviations, you are given an option to choose.</p>
                         <p><b>Use only one:</b></p>
@@ -689,14 +689,14 @@ vsc = [
                     </code></pre>
                     <h4 id="VSC_Tips">Tips:</h4>
                     <p>You can find the name for the extension on its Visual Studio Marketplace page:</p>
-                    <img src="stuff/vsc_example.png" alt="vsc_example1">
+                    <img src="stuff/vsc_example.png" alt="vsc_example1" class="vsc_example">
                     <p>The name can also be found within its extensions page under "Details" tab on the right of page underneath "More Info".</p>
                     <img src="stuff/vsc_example2.png" alt="vsc_example2">
                     <p>If you have the extension installed, the extension identifer can also be found by executing the command <code>code --list-extensions</code> in your terminal.</p>
                     <img src="stuff/vsc_example3.png" alt="vsc_example3">
                 </div>
                 <div class="sub-subsection">
-                    <h3>Vscodium</h3>
+                    <h3 id="Vscodium">Vscodium</h3>
                     <p>Vscodium has a different repository for extensions to Visual Studio Code so you will find that a lot of extensions available in Visual Studio Code aren't available.</p>
                     <p>Only the extensions available in the vscodium extension marketplace can be installed, and the extensions unavailable will have to be installed manually by acquring their VSIX.</p>
                     <pre class="code_example"><code class="language-toml">
@@ -710,7 +710,7 @@ vscodium = [
                     <p>Follow the tips provided for <a href="#VSC_Tips">Visual Studio Code</a>.</p>
                 </div>
                 <div class="sub-subsection">
-                    <h3>Flatpak</h3>
+                    <h3 id="Flatpak">Flatpak</h3>
                     <pre class="code_example"><code class="language-toml">
 [install]
 flatpak = [

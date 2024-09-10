@@ -4,7 +4,23 @@ const themePreference = localStorage.getItem("theme");
 const lightIcon = "stuff/light_mode.svg"
 const darkIcon = "stuff/dark_mode.svg"
 const menuToggle = document.querySelector('.menu');
-const sideBar = document.querySelector(".sidebar")
+const sideBar = document.querySelector(".sidebar");
+const sideBarLinks = document.querySelectorAll(".sidebar a");
+const headerHeight = document.querySelector('header').offsetHeight;
+
+sideBarLinks.forEach(link => {
+    link.addEventListener('click', (event) => {
+        event.preventDefault();
+        const targetId = link.getAttribute('href').substring(1);
+
+        const targetElement = document.getElementById(targetId);
+        const scrollPoisition = (targetElement.offsetTop - headerHeight) - 10;
+        window.scrollTo({
+            top: scrollPoisition,
+            behavior: 'smooth'
+        });
+    });
+});
 
 function toggleDark() {
     document.body.classList.remove("light-theme");
@@ -58,7 +74,7 @@ window.addEventListener('scroll', function() {
 
     for (var i = 0; i < sections.length; i++) {
         var section = sections[i];
-        var sectionTop = section.offsetTop;
+        var sectionTop = (section.offsetTop - headerHeight) - 15;
         var sectionBottom = sectionTop + section.offsetHeight;  
 
 
@@ -72,3 +88,8 @@ window.addEventListener('scroll', function() {
         }
     }
 });
+
+function copyCode(codeID) {
+    var text = document.getElementById(codeID).innerHTML;
+    navigator.clipboard.writeText(text);
+}
