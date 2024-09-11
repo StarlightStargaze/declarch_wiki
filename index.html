@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en-GB">
 <head>
-    <title>Single-Page Wiki</title>
+    <title>Declarch Wiki</title>
+    <link rel="icon" href="stuff/declarch-white.png">
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -117,12 +118,13 @@
                     </li>
                     <li>
                         <h3>Package Management</h3>
-                        <p>Declarch doesn't have it's own package manager, it piggy backs off of various package managers.</p>
-                        <p>Right now, Declarch primarily focuses on Arch, but other distros will soon become compatible.</p>
+                        <p>Declarch doesn't have it's own package manager, it acts as a wrapper for a number of package managers.</p>
+                        <p>Right now, Declarch primarily focuses on Arch and Debian, but other distros will soon become compatible.</p>
                         <p>Declarch installs packages in the order of which they are listed in the config file and removes packages when they are removed.</p>
                         <p><b>Right now, the available package managers are:</b></p>
                         <ul>
                             <li>Pacman</li>
+                            <li>Apt</li>
                             <li>Paru</li>
                             <li>Yay</li>
                             <li>Flatpak</li>
@@ -669,6 +671,19 @@ pacman = [
                         <img alt="arch_screenshot" src="stuff/arch_example.png">
                         <p>You can also search for the package in the <a href="https://archlinux.org/packages/">Official Repository</a> or the <a href="https://archlinux.org/packages/">AUR Repository</a>.</p>
                         </div>
+                    </div>
+                    <div class="sub-subsection">
+                        <h3 id="Debian">Debian</h3>
+                        <p>Declarch supports installing packages through <span class="highlight">apt</span>.</p>
+                        <p>Declarch can only install the packages available from your set source repositories and does not provide support for installing <code>.deb</code> files for example.</p>
+                        <p>Currently, for the packages that aren't available in your provided apt repositories, you can use <a href="#Flatpak">Flatpak</a> instead.</p>
+                        <pre class="code_example"><code class="language-toml">
+[install]
+apt = [
+    "neofetch",
+    "mpd"
+]
+                        </code></pre>
                     </div>
                     <div class="sub-subsection">
                         <h3 id="VSC">Visual Studio Code</h3>
