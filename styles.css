@@ -31,6 +31,13 @@ header .right {
   right: 0 !important;
   margin-left: auto;
   margin-right: 20px;
+  align-items: center;
+}
+header .right .github {
+  width: 23px;
+}
+header .right .icon {
+  margin-left: 5px;
 }
 header img {
   width: 30px;
